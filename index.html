@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>KSim CAS</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#b7e4c7" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- 3D World Layer (Replace /playcanvas with PlayCanvas export later) -->
+  <iframe id="worldFrame" class="world-frame" src="playcanvas/index.html" title="KSim World"></iframe>
+
+  <!-- HUD Layer -->
+  <div id="hud" class="hud-root" role="application" aria-label="KSim CAS HUD">
+    <header class="topbar">
+      <button id="backBtn" class="iconbtn" aria-label="Back">←</button>
+      <div class="topbar-title">KSim CAS</div>
+      <div id="weatherChip" class="chip" title="Weather">Loading…</div>
+      <button id="musicToggle" class="iconbtn" aria-label="Music">♫</button>
+      <button id="musicSkip" class="iconbtn" aria-label="Skip">↻</button>
+    </header>
+
+    <main class="stage">
+      <aside class="quickbar" aria-label="Quick actions">
+        <button class="qbtn" data-action="drink" title="Drink"><span class="qico">💧</span></button>
+        <button class="qbtn" data-action="snack" title="Snack"><span class="qico">🍓</span></button>
+        <button class="qbtn" data-action="meal" title="Meal"><span class="qico">🍲</span></button>
+        <button class="qbtn" data-action="hygiene" title="Hygiene"><span class="qico">🧼</span></button>
+        <button class="qbtn" data-action="homeschool" title="Homeschool"><span class="qico">📚</span></button>
+        <button class="qbtn" data-action="entertain" title="Entertainment"><span class="qico">🎶</span></button>
+        <button class="qbtn" data-action="clean" title="Clean"><span class="qico">🧹</span></button>
+        <button class="qbtn" data-action="exercise" title="Exercise"><span class="qico">🏃</span></button>
+      </aside>
+
+      <div id="hygieneMenu" class="bubblemenu" aria-hidden="true">
+        <button data-hyg="toilet">Toilet</button>
+        <button data-hyg="shower">Shower</button>
+        <button data-hyg="teeth">Teeth</button>
+        <button data-hyg="hair">Hair</button>
+        <button data-hyg="skin">Skin</button>
+      </div>
+
+      <!-- Tap zone for “open menu” (character in 3D world; this is a HUD hotspot) -->
+      <section class="tapzone" aria-label="Tap Kelly to open menu">
+        <button id="openPanelBtn" class="tapzone-btn" aria-label="Open menu"></button>
+        <div id="xpFloatLayer" class="xp-layer" aria-hidden="true"></div>
+      </section>
+
+      <div id="overlay" class="overlay" aria-hidden="true"></div>
+
+      <aside id="panel" class="panel" aria-label="NookPhone Menu">
+        <div class="nookphone">
+          <div class="np-head">
+            <div class="np-handle" aria-hidden="true"></div>
+            <div class="np-title">NookPhone</div>
+            <div class="np-sub">Kelly’s Life Dashboard</div>
+          </div>
+
+          <nav class="tabs" aria-label="Tabs">
+            <button data-tab="emotions" data-icon="EM" data-label="Emotions">Emotions</button>
+            <button data-tab="needs" data-icon="ND" data-label="Needs">Needs</button>
+            <button data-tab="recipes" data-icon="RC" data-label="Recipes">Recipes</button>
+            <button data-tab="baking" data-icon="BK" data-label="Baking">Baking</button>
+            <button data-tab="haircare" data-icon="HC" data-label="HairCare">HairCare</button>
+            <button data-tab="timers" data-icon="TM" data-label="Timers">Timers</button>
+            <button data-tab="calendar" data-icon="CL" data-label="Calendar">Calendar</button>
+            <button data-tab="reactions" data-icon="RX" data-label="Reactions">Reactions</button>
+            <button data-tab="skills" data-icon="SK" data-label="Skills">Skills</button>
+            <button data-tab="notifications" data-icon="NT" data-label="Notifs">Notifs</button>
+          </nav>
+
+          <div id="tabContent" class="content" tabindex="-1"></div>
+        </div>
+      </aside>
+
+      <div id="actionMenu" class="action-menu" aria-hidden="true">
+        <button data-act="edit">Edit</button>
+        <button data-act="delete">Delete</button>
+        <button data-act="close">Close</button>
+      </div>
+    </main>
+
+    <footer class="hudbar" aria-label="HUD">
+      <button id="headshotBtn" class="headshot" aria-label="Close menu / Home"></button>
+
+      <div class="plumbob-wrap" aria-hidden="true">
+        <div id="plumbob" class="plumbob"></div>
+      </div>
+
+      <div class="moodblock">
+        <div id="moodMain" class="mood-main">good</div>
+        <div id="moodSub" class="mood-sub">balanced</div>
+        <div class="gauge"><div id="moodGauge" class="gauge-fill"></div></div>
+      </div>
+
+      <div id="needDots" class="dots" aria-label="Need health">•••</div>
+    </footer>
+
+    <button id="installBtn" class="install" hidden>Install App</button>
+  </div>
+
+  <script src="js/state.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/app.js"></script>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js').catch(()=>{});
+    }
+  </script>
+</body>
+</html>

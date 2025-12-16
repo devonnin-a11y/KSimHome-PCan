@@ -1,0 +1,5 @@
+Place image files here.
+
+Recommended:
+images/icon-192.png
+images/icon-512.png
